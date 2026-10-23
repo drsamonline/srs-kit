@@ -1,6 +1,7 @@
 # srs-kit
 
 [![live](https://img.shields.io/badge/live-online-22c55e)](https://drsamonline.github.io/srs-kit/)
+[![test](https://github.com/drsamonline/srs-kit/actions/workflows/test.yml/badge.svg)](https://github.com/drsamonline/srs-kit/actions/workflows/test.yml)
 [![license](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 
 **Spaced repetition (SM-2).** Zero dependencies. One file. SM-2 scheduling for flashcards — the shared logic
