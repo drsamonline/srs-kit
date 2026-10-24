@@ -17,12 +17,19 @@ See `srs-kit.js` for the full API and `test-node.js` for worked examples.
 - ease / interval / reps
 - lapses reset the interval
 - due cards + stats
+- **a configurable cadence** — first interval, second interval and lapse interval
+  (each may live on the card, so a deck carries its own)
+- **a daily cap** on the due queue, so a backlog does not become a wall
+
+The cadence and the cap were reverse-imported from `conqueror-os`, whose scheduler
+had them while this kit hardcoded 1 and 6. Both are **opt-in**, so an existing
+caller keeps the old behaviour exactly.
 
 ## Verified
 
 ```
 node test-node.js
-14 passed, 0 failed
+23 passed, 0 failed
 ```
 
 ## Consumers
