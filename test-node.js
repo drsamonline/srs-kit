@@ -38,5 +38,19 @@ ok("stats counts due", st.due === 2);
 ok("stats counts mature", st.mature === 1);
 ok("stats sums lapses", st.lapses === 2);
 
+/* ---- the scheduler's cadence is configurable (reverse-imported from conqueror-os) ---- */
+ok("defaults are unchanged", Srs.review(Srs.newCard(), 5, T).interval === 1 && Srs.review(Srs.review(Srs.newCard(), 5, T), 5, T + DAY).interval === 6);
+ok("a configurable FIRST interval", Srs.review(Srs.newCard(), 5, T, { firstInterval: 3 }).interval === 3);
+ok("a configurable SECOND interval", (function(){ let x = Srs.review(Srs.newCard(), 5, T, { secondInterval: 10 }); x = Srs.review(x, 5, T + DAY, { secondInterval: 10 }); return x.interval === 10; })());
+ok("a card can carry its own cadence", Srs.review(Srs.newCard({ firstInterval: 2 }), 5, T).interval === 2);
+ok("a lapse interval is configurable (0 = same day)", Srs.review(Srs.newCard(), 2, T, { lapseInterval: 0 }).interval === 0);
+ok("the defaults are exported", Srs.DEFAULTS && Srs.DEFAULTS.firstInterval === 1 && Srs.DEFAULTS.secondInterval === 6);
+
+/* ---- the due queue can be capped for the day ---- */
+const backlog = [{ due: T - 9 }, { due: T - 8 }, { due: T - 7 }, { due: T - 6 }];
+ok("no cap -> the whole backlog", Srs.dueCards(backlog, T).length === 4);
+ok("a cap limits the day's queue", Srs.dueCards(backlog, T, { cap: 2 }).length === 2);
+ok("a cap of 0 means no cap", Srs.dueCards(backlog, T, { cap: 0 }).length === 4);
+
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);
