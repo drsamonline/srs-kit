@@ -7,7 +7,7 @@
  *   c = Srs.review(c, 5, Date.now());   // recalled easily
  *   c = Srs.review(c, 2, Date.now());   // forgot -> resets
  *
- * MIT License. (c) 2026 Dr Sohil Momin.
+ * PolyForm Noncommercial 1.0.0. (c) 2026 Dr Sohil Momin.
  */
 (function (root, factory) {
   if (typeof module === "object" && module.exports) module.exports = factory();
