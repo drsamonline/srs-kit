@@ -2,7 +2,7 @@
 
 [![live](https://img.shields.io/badge/live-online-22c55e)](https://drsamonline.github.io/srs-kit/)
 [![test](https://github.com/drsamonline/srs-kit/actions/workflows/test.yml/badge.svg)](https://github.com/drsamonline/srs-kit/actions/workflows/test.yml)
-[![license](https://img.shields.io/badge/license-PolyForm Noncommercial-blue)](LICENSE)
+[![License: PolyForm Noncommercial 1.0.0](https://img.shields.io/badge/license-PolyForm%20Noncommercial%201.0.0-blue)](LICENSE)
 
 **Spaced repetition (SM-2).** Zero dependencies. One file. SM-2 scheduling for flashcards — the shared logic
 extracted from the drsamonline apps that repeat it.
