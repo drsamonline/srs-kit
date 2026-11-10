@@ -65,7 +65,12 @@
   /* The due queue, optionally CAPPED for the day (opts.cap, 0 = no cap). A cap is
      what stops a backlog turning a daily review into a wall. (From conqueror-os.) */
   S.dueCards = function (cards, now, opts) {
-    var due = (cards || []).filter(function (c) { return S.isDue(c, now); });
+    // Most overdue first. The queue used to be the storage order, so a card due
+    // today came before one thirty days overdue, and a cap took whichever cards
+    // happened to be first in the array rather than the ones most in need of the
+    // session.
+    var due = (cards || []).filter(function (c) { return S.isDue(c, now); })
+      .sort(function (a, b) { return (a.due || 0) - (b.due || 0); });
     var cap = pick(opts && opts.cap, null, S.DEFAULTS.dailyCap);
     return cap > 0 ? due.slice(0, cap) : due;
   };

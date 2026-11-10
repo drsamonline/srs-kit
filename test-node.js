@@ -51,6 +51,16 @@ const backlog = [{ due: T - 9 }, { due: T - 8 }, { due: T - 7 }, { due: T - 6 }]
 ok("no cap -> the whole backlog", Srs.dueCards(backlog, T).length === 4);
 ok("a cap limits the day's queue", Srs.dueCards(backlog, T, { cap: 2 }).length === 2);
 ok("a cap of 0 means no cap", Srs.dueCards(backlog, T, { cap: 0 }).length === 4);
+// The cap must take the cards most in need of the session, and the queue must
+// lead with the most overdue - not whichever card sits first in the array.
+(function () {
+  const DAY = 86400000;
+  const mixed = [{ due: T - 1 * DAY }, { due: T - 30 * DAY }, { due: T - 2 * DAY }];
+  const order = Srs.dueCards(mixed, T).map((c) => Math.round((T - c.due) / DAY));
+  ok("the queue leads with the most overdue", order.join(",") === "30,2,1", order.join(","));
+  const capped = Srs.dueCards(mixed, T, { cap: 2 }).map((c) => Math.round((T - c.due) / DAY));
+  ok("the cap takes the most overdue, not the first in the array", capped.join(",") === "30,2", capped.join(","));
+})();
 
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);
